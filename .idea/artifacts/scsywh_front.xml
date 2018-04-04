@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="scsywh_front">
+    <output-path>$PROJECT_DIR$/out/artifacts/scsywh_front</output-path>
+    <root id="archive" name="scsywh_front.war">
+      <element id="dir-copy" path="$PROJECT_DIR$" />
+    </root>
+  </artifact>
+</component>

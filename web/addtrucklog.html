@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../commom/jquery211.min.js"></script>
+    <script src="../commom/bootstrap.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script>
+        $(document).ready(function() {
+            $("#btn1").click(function () {
+                /*
+                var data = {};
+                data["distance"] = "29";
+                data["fuelvol"] = "2";
+                data["lock"] = "1-0-1-1-1";
+                data["battery"] = "56-23-34-12-34";
+                data["haswarn"] = 1;
+                data["warntype"] = 5;
+                data["righttiretemp"] = "22";
+                data["lefttiretemp"] = "22";
+                data["trucknumber"] = document.getElementById("trucknumber").value;
+                data["time"] = new Date().getTime();
+                data["gpsx"] = "116.41667"; data["gpsy"] = "39.91667";
+                data["speed"] = "111";
+                data["lefttirepressure"] = "23";
+                data["righttirepressure"] = "34";
+                */
+                var data = {};
+                data["time"] = new Date().getTime();
+                data["lock"] = "1-0-1-1-1";
+                data["battery"] = "56-23-34-12-34";
+                data["gpsx"] = "116.41667"; data["gpsy"] = "39.91667";
+                var form = document.getElementById("form");
+                var inputs = form.getElementsByTagName("input");
+                for(var i = 0; i < inputs.length; i++){
+                    var value = inputs[i].value;
+                    var key = inputs[i].id;
+                    if(value.length != 0){
+                        data[key] = value;
+                    }
+                }
+                var selects = form.getElementsByTagName("select");
+                for(var i = 0; i < selects.length; i++){
+                    var index = selects[i].selectedIndex;
+                    var value = selects[i].options[index].value;
+                    var key = selects[i].id;
+                    if(value.length != 0){
+                        data[key] = value;
+                    }
+                }
+                alert(JSON.stringify(data));
+                $.ajax({
+                    url:"http://120.76.219.196:85/trucklogs/add_log",
+                    type:'post',
+                    dataType:'json',
+                    data:data,
+                    success:function (response) {
+                        alert(JSON.stringify(response))
+                    }
+
+                })
+            });
+        })
+    </script>
+</head>
+<body>
+<div style="height: 20px"></div>
+<div id="form" class="row">
+    <div class="col-lg-4">
+        <label style="width: 80px">车牌号：</label><input id="trucknumber" value="川C20559"><br>
+        <label style="width: 80px">车速：</label><input id="speed" value="80"><br>
+        <label style="width: 80px">里程数：</label><input id="distance" value="300"><br>
+        <label style="width: 80px">油量：</label><input id="fuelvol" value="40"><br>
+    </div>
+    <div class="col-lg-4">
+        <label style="width: 80px">左胎胎温：</label><input id="lefttiretemp" value="27"><br>
+        <label style="width: 80px">右胎胎温：</label><input id="righttiretemp" value="28"><br>
+        <label style="width: 80px">左胎胎压：</label><input id="lefttirepressure" value="1200"><br>
+        <label style="width: 80px">右胎胎压：</label><input id="righttirepressure" value="1250"><br>
+    </div>
+    <div class="col-lg-3">
+        <div class="col-lg-4">
+            <label style="width: 80px">有无异常：</label>
+            <select id="haswarn" style="width: 120px">
+                <option value="0">无</option>
+                <option value="1">有</option>
+            </select>
+            <label style="width: 80px">异常类型：</label>
+            <select id="warntype" style="width: 120px">
+                <option value="1">安全锁异常</option>
+                <option value="2">泄露异常</option>
+                <option value="3">胎压异常</option>
+                <option value="4">油量异常</option>
+                <option value="5">超速异常</option>
+                <option value="7">疲劳驾驶</option>
+            </select>
+        </div>
+    </div>
+</div>
+<button id="btn1">确认</button>
+</body>
+</html>
